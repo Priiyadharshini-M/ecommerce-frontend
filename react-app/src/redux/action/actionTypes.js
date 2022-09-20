@@ -1,0 +1,6 @@
+export const ADD_USER = "ADD_USER"
+export const LOGIN_USER = "LOGIN_USER"
+export const ERROR_MESSAGE = "ERROR_MESSAGE"
+export const LOG_OUT = "LOG_OUT"
+export const ADD_PRODUCTS = "ADD_PRODUCTS"
+export const VIEW_PRODUCTS = "VIEW_PRODUCTS"
