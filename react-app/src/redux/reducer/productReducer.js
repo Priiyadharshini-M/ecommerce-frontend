@@ -4,7 +4,9 @@ const initialState = {
     successMessage:'',
     success:false,
     loading:true,
-    products:[]
+    products:[],
+    productDetail:'',
+    productCount:0
 }
 
 export const productReducer = (state=initialState, action) => {
@@ -18,7 +20,13 @@ export const productReducer = (state=initialState, action) => {
         case types.VIEW_PRODUCTS:
             return{
                 ...initialState,
-                products:action.payload
+                products:action.payload.product,
+                productCount:action.payload.productCount
+            }
+        case types.VIEW_PRODUCT:
+            return{
+                ...initialState,
+                productDetail:action.payload
             }
         default:
             return{

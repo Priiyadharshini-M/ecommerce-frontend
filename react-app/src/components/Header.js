@@ -50,10 +50,10 @@ export const Header = () => {
             </ul>
 
 
-            {userId !== '' && <><span className="nav-item me-5 float-end text-white pb-5"><span className="ms-3 fs-1 "><a
+            {userId !== '' && <><span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
               aria-disabled="true" title="View profile" href='/profile'><i className="bi bi-person-circle fs-1 text-white me-3"></i><span
                 className="text-white fs-3 me-3">{decodedToken.userName}</span></a></span>
-            </span> <li className="nav-item p-3 h2"><button className="nav-link mx-3 text-white bg-dark " aria-disabled="false" onClick={logoutHandler}>Logout &nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i></button></li></>}
+            </span> <li className="nav-item p-3 h2"><button className="nav-link mx-3 text-white bg-dark border border-0" aria-disabled="false" onClick={logoutHandler}>Logout &nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i></button></li></>}
             {userId === '' && <span className="nav-item me-5 float-end text-white pb-4"><span className="ms-3 fs-1 "><a
               aria-disabled="true" title="Click to login" href='/login'><i
                 className="bi bi-person-circle fs-1 text-white me-3 "></i><span
