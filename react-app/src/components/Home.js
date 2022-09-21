@@ -1,29 +1,21 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { viewFilteredProducts, viewProducts } from '../redux/action/productAction'
+import { viewFilteredProducts, viewProducts, viewProductTypes } from '../redux/action/productAction'
 import styles from "./Home.module.css";
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom';
 import SweetPagination from 'sweetpagination';
 
 export const Home = () => {
-    const { products } = useSelector(state => state.product)
+    const { products, productTypes } = useSelector(state => state.product)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [currentPageData, setCurrentPageData] = useState(products);
-    const [productType, setProductType] = useState({
-        productType : ''
-    })
 
     useEffect(() => {
         dispatch(viewProducts())
+        dispatch(viewProductTypes())
     }, [dispatch])
-
-    const changeHandler = (event) =>{
-        setProductType((prevState) => ({ ...prevState, [event.target.name]: event.target.value }))
-        console.log("looo",productType)
-        dispatch(viewFilteredProducts(productType))
-    }
 
     return (
         <>
@@ -31,30 +23,26 @@ export const Home = () => {
                 <div className="col col-sm-12 col-md-8 col-lg-12 mb-2 me-5 mt-4 filter fs-4 ml-5">
                     <label htmlFor="filterByState">Filter</label>&nbsp;&nbsp;
                     <i className="bi bi-filter"></i>&nbsp;&nbsp;
-                    <select className="row-cols-lg-12 mt-2 border border-3 rounded-3 bg-light text-black me-3" id="filter"
-                        name="filter" type="text" onChange={changeHandler}>
+                    <select className="row-cols-lg-12 mt-2 border border-3 rounded-3 bg-light text-black me-3" id="productType"
+                        name="productType" type="text" onChange={event => {
+                            if (!event.target.value) {
+                                dispatch(viewProducts())
+                            }
+                            else {
+                                dispatch(viewFilteredProducts(event.target.value))
+                            }
+                        }}>
                         <option value="">Product Category</option>
-                        {products && products.map((product) => {
-                            return(
-                                <option value={product.productType}>
-                                    {product.productType}
-                                </option>
+                        {productTypes && productTypes.map((product) => {
+                            return (
+                                <React.Fragment key={product._id}>
+                                    <option value={product.productType}>
+                                        {product.productType}
+                                    </option>
+                                </React.Fragment>
                             )
                         })}
                     </select>
-
-                    <span className="row-cols row-cols-sm-12 row-cols-lg-12">
-
-                        <label htmlFor="sortByPrice">Sort</label>&nbsp;&nbsp;
-                        <i className="bi bi-sort-up"></i>&nbsp;&nbsp;
-                        <select className="row-cols row-cols-sm-12 row-cols-lg-12 mt-2 border bg-light border-3 rounded-3 text-black"
-                            id="sort" name="sort" type="text">
-                            <option value="">All packages</option>
-                            <option value="low">Low to High</option>
-                            <option value="high">High to Low</option>
-                        </select>
-
-                    </span>
                 </div >
             </div>
 
@@ -95,9 +83,9 @@ export const Home = () => {
                                     </div>
                                 </div>
                             </div>
+                            
                         )
                     })}
-
                 </div>
             </div><br />
             <SweetPagination

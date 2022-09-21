@@ -27,7 +27,7 @@ export const userReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.ADD_USER:
             return{
-            ...initialState,
+            ...state,
             successMessage:action.payload.data.message,
             success:true,
             loading:false
@@ -37,7 +37,7 @@ export const userReducer = (state = initialState, action) => {
             const userToken = sessionStorage.getItem('token')
             user = jwtDecode(userToken)
             return{
-                ...initialState,
+                ...state,
                 token:action.token,
                 userId:user.id,
                 role:user.role,
@@ -47,14 +47,14 @@ export const userReducer = (state = initialState, action) => {
             } 
         case types.ERROR_MESSAGE:
             return{
-                ...initialState,
+                ...state,
                 errorMessage:action.payload,
                 loading:false
             }
         case types.LOG_OUT:
             sessionStorage.removeItem("token")
             return{
-                ...initialState,
+                ...state,
                 token:'',
                 userId:'',
                 role:'',

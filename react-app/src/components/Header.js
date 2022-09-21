@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../redux/action/userAction'
 import jwtDecode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import styles from "./ProductDetails.module.css";
 
 export const Header = () => {
   const user = useSelector(state => state.user.role)
@@ -50,6 +51,8 @@ export const Header = () => {
             </ul>
 
 
+            <span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
+              aria-disabled="true" className='text-decoration-none' title="View cart" href='/cart'><span className="bi bi-cart fs-1 text-white me-3"> <sup id={styles.cart}>0</sup></span></a></span></span>
             {userId !== '' && <><span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
               aria-disabled="true" title="View profile" href='/profile'><i className="bi bi-person-circle fs-1 text-white me-3"></i><span
                 className="text-white fs-3 me-3">{decodedToken.userName}</span></a></span>

@@ -33,10 +33,27 @@ export const viewProducts = () => {
     }
 }
 
+export const viewProductTypes = () => {
+    return async(dispatch) => {
+        await axios.get(`${process.env.REACT_APP_BASE_URL}/product/types/pro`)
+        .then(product => {
+            console.log(product)
+            dispatch({
+                type: types.VIEW_PRODUCT_TYPES,
+                payload: product.data
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
 export const viewFilteredProducts = (productType) => {
     console.log("product type",productType)
+    // if()
     return async(dispatch) => {
-        await axios.post(`${process.env.REACT_APP_BASE_URL}/product/filteredProducts`,productType)
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/product/filteredProducts`,{productType:productType})
         .then(product => {
             console.log(product)
             dispatch({

@@ -1,0 +1,19 @@
+#image{
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.margin{
+    margin-left: 25%;
+}
+#cart{
+    position: absolute;
+    top:20px;
+    right:185px;
+    font-size: medium;
+    font-weight: bolder;
+    justify-content: center;
+    border-radius: 50px 50px 50px 50px;
+    padding: 9px 3px 9px 3px;
+    background-color: rgb(255, 0, 0);
+}
