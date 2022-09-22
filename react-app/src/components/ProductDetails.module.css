@@ -7,13 +7,12 @@
     margin-left: 25%;
 }
 #cart{
-    position: absolute;
-    top:20px;
-    right:185px;
-    font-size: medium;
+    position: relative;
+    margin-bottom: 150%;
+    font-size: small;
     font-weight: bolder;
     justify-content: center;
     border-radius: 50px 50px 50px 50px;
-    padding: 9px 3px 9px 3px;
+    padding: 3px 7px 4px 7px;
     background-color: rgb(255, 0, 0);
 }

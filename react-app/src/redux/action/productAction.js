@@ -51,7 +51,6 @@ export const viewProductTypes = () => {
 
 export const viewFilteredProducts = (productType) => {
     console.log("product type",productType)
-    // if()
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/product/filteredProducts`,{productType:productType})
         .then(product => {
@@ -75,6 +74,72 @@ export const viewIndividualProduct = (id) => {
             dispatch({
                 type: types.VIEW_PRODUCT,
                 payload: product.data.product
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const addToCart = (product) => {
+    console.log("add to cart send product",product)
+    return async(dispatch) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cart/`,product)
+        .then(cart => {
+            console.log("add to cart",cart)
+            dispatch({
+                type: types.ADD_TO_CART,
+                payload: cart
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const viewCart = (id) => {
+    return async(dispatch) => {
+        await axios.get(`${process.env.REACT_APP_BASE_URL}/cart/${id}`)
+        .then(cart => {
+            console.log(cart)
+            dispatch({
+                type: types.VIEW_CART,
+                payload: cart.data
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const updateCart = (product, id) => {
+    console.log("update cart send product",product)
+    return async(dispatch) => {
+        await axios.put(`${process.env.REACT_APP_BASE_URL}/cart/${id}`,product)
+        .then(cart => {
+            console.log("add to cart",cart)
+            dispatch({
+                type: types.UPDATE_CART,
+                payload: cart
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const removeFromCart = (id) => {
+    return async(dispatch) => {
+        await axios.delete(`${process.env.REACT_APP_BASE_URL}/cart/${id}`)
+        .then(cart => {
+            console.log(cart)
+            dispatch({
+                type: types.REMOVE_FROM_CART,
+                payload: cart.data
             })
         })
         .catch(err => {

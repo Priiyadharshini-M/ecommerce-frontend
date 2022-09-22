@@ -7,6 +7,7 @@ import { Header } from './components/Header'
 import { Product } from './components/Product';
 import { Home } from './components/Home';
 import { ProductDetails } from './components/ProductDetails';
+import { Cart } from './components/Cart';
 // import { Footer } from './components/Footer'
 
 axios.interceptors.request.use(
@@ -25,11 +26,13 @@ function App() {
     <>
     <Header />
     <Routes>
-      <Route path='/' element={<Register />} />
+      <Route path='/' element={<Home />} />
+      <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/product/add' element={<Product />} />
       <Route path='/home' element={<Home />} />
       <Route path='/product/:id' element={<ProductDetails />} />
+      <Route path='/cart' element={<Cart />} />
     </Routes>
     {/* <Footer /> */}
     </>

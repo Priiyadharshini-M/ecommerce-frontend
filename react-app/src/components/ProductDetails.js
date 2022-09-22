@@ -1,19 +1,39 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { viewIndividualProduct } from "../redux/action/productAction"
-import { useParams } from 'react-router-dom'
+import { addToCart, viewIndividualProduct } from "../redux/action/productAction"
+import { useParams, useNavigate } from 'react-router-dom'
 import styles from "./ProductDetails.module.css";
 import CurrencyFormat from 'react-currency-format';
 
 export const ProductDetails = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const id = useParams()
-    const { productDetail } = useSelector(state => state.product)
+    const { productDetail, successMessage } = useSelector(state => state.product)
+    const { userId } = useSelector(state => state.user)
     console.log("id is", id.id)
+
+    const addCart = (id) => {
+        dispatch(addToCart({
+            userId,
+            productId:id,
+            quantity:1
+        }))
+    }
 
     useEffect(() => {
         dispatch(viewIndividualProduct(id.id))
     }, [dispatch, id.id])
+
+    useEffect(() => {
+        if (successMessage !== '') {
+            alert(successMessage)
+            navigate('/cart')
+            //window.location.reload()
+        }
+        // eslint-disable-next-line
+    }, [successMessage])
+
     return (
         <>
             <div className="container h-100 mt-5">
@@ -26,7 +46,7 @@ export const ProductDetails = () => {
                                     <img className=" rounded-6 border border-2 float-start" id={styles.image} src={product.productImage} alt="Fails to load" />
                                     </div>
                                     <div className='row'>
-                                    <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6">Add to Cart</button>
+                                    <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>
                                     </div>
                                 </div>
                                 <div className="col-12 col-xl-6 col-lg-6 col-md-6">
