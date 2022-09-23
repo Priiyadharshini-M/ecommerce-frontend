@@ -2,3 +2,17 @@
     background-color: rgb(249, 243, 243);
     margin-left: 7%;
 }
+.image{
+    width:37%
+}
+#link{
+    text-decoration: none;
+}
+#button{
+    margin-left: 25%;
+    width: 50%;
+}
+#priceContainer{
+    position: sticky;
+    background-color: rgb(220, 215, 215);
+}

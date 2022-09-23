@@ -32,7 +32,7 @@ export const Header = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-0 mb-0" aria-label="Fifth navbar example">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-0 mb-5" aria-label="Fifth navbar example">
         <div className="container-fluid">
           <a className="navbar-brand fs-1" href="/home">e-Shoppy</a>
           <button className="navbar-toggler collapsed ms-auto" type="button" data-bs-toggle="collapse"

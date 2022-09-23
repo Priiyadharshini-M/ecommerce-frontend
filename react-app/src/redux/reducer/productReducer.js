@@ -23,18 +23,21 @@ export const productReducer = (state=initialState, action) => {
         case types.VIEW_PRODUCTS:
             return{
                 ...state,
+                successMessage:'',
                 products:action.payload.product,
                 productCount:action.payload.productCount
             }
         case types.VIEW_PRODUCT:
             return{
                 ...state,
+                successMessage:'',
                 productDetail:action.payload
             }
         case types.VIEW_PRODUCT_TYPES:
             console.log("productttttt typessss",action.payload.productType)
             return{
                 ...state,
+                successMessage:'',
                 productTypes:action.payload.productType
             }
         case types.ADD_TO_CART:
@@ -46,6 +49,7 @@ export const productReducer = (state=initialState, action) => {
         case types.VIEW_CART:
             return{
                 ...state,
+                successMessage:'',
                 cart:action.payload.cart,
                 cartCount:action.payload.cartCount
             }

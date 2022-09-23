@@ -1,6 +1,11 @@
 import axios from 'axios'
 import * as types from './actionTypes'
 
+const errorMessage = (message) => ({
+    type: types.ERROR_MESSAGE,
+    payload: message.err
+})
+
 export const addProduct = (product) => {
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/product/`,product)
@@ -110,7 +115,8 @@ export const viewCart = (id) => {
             })
         })
         .catch(err => {
-            alert(err.response.data.err)
+            //alert(err.response.data.err)
+            dispatch(errorMessage(err.response.data))
         })
     }
 }
