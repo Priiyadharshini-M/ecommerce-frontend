@@ -115,6 +115,7 @@ export const viewCart = (id) => {
             })
         })
         .catch(err => {
+            console.log("error",err)
             //alert(err.response.data.err)
             dispatch(errorMessage(err.response.data))
         })
@@ -150,6 +151,40 @@ export const removeFromCart = (id) => {
         })
         .catch(err => {
             alert(err.response.data.err)
+        })
+    }
+}
+
+export const order = (order) => {
+    console.log("order send product",order)
+    return async(dispatch) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/order/`,order)
+        .then(order => {
+            console.log("orders",order)
+            dispatch({
+                type: types.MAKE_ORDER,
+                payload: order
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const viewOrder = (id) => {
+    return async(dispatch) => {
+        await axios.get(`${process.env.REACT_APP_BASE_URL}/order/${id}`)
+        .then(order => {
+            console.log(order)
+            dispatch({
+                type: types.VIEW_ORDER,
+                payload: order.data
+            })
+        })
+        .catch(err => {
+            //alert(err.response.data.err)
+            //dispatch(errorMessage(err.response.data))
         })
     }
 }

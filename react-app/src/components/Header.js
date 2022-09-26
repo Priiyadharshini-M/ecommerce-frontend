@@ -47,7 +47,7 @@ export const Header = () => {
                 <a className="nav-link mx-3 text-white" href='/home'>Home</a>
               </li>
               {user === 'user' && <li className="nav-item p-3 h2" title="View cart">
-                <a className="nav-link mx-3 text-white " href='/cart'>Cart</a>
+                <a className="nav-link mx-3 text-white " href='/orders'>My orders</a>
               </li>}
               {user === 'admin' && <><li className="nav-item p-3 h2" title=" Add new product">
                 <a className="nav-link mx-3 text-white " href='/product/add'>Add Product</a>

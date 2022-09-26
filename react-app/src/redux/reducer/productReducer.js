@@ -9,6 +9,8 @@ const initialState = {
     productDetail:'',
     productCount:0,
     cart:[],
+    order:[],
+    orderCount:0,
     cartCount:0
 }
 
@@ -62,6 +64,18 @@ export const productReducer = (state=initialState, action) => {
             return{
                 ...state,
                 successMessage:action.payload.message
+            }
+        case types.MAKE_ORDER:
+            return{
+                ...state,
+                successMessage:action.payload.data.message
+            }
+        case types.VIEW_ORDER:
+            return{
+                ...state,
+                successMessage:'',
+                order:action.payload.order,
+                orderCount:action.payload.orderCount
             }
         default:
             return{

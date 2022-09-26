@@ -8,6 +8,8 @@ import { Product } from './components/Product';
 import { Home } from './components/Home';
 import { ProductDetails } from './components/ProductDetails';
 import { Cart } from './components/Cart';
+import { Orders } from './components/Orders';
+import "bootstrap/dist/css/bootstrap.min.css";
 // import { Footer } from './components/Footer'
 
 axios.interceptors.request.use(
@@ -33,6 +35,7 @@ function App() {
       <Route path='/home' element={<Home />} />
       <Route path='/product/:id' element={<ProductDetails />} />
       <Route path='/cart' element={<Cart />} />
+      <Route path='/orders' element={<Orders />} />
     </Routes>
     {/* <Footer /> */}
     </>
