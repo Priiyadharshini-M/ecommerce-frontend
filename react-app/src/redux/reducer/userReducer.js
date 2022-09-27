@@ -33,7 +33,6 @@ export const userReducer = (state = initialState, action) => {
             loading:false
             }
         case types.LOGIN_USER:
-            console.log("token",action.payload)
             const userToken = sessionStorage.getItem('token')
             user = jwtDecode(userToken)
             return{

@@ -13,7 +13,6 @@ export const Register = () => {
     const { successMessage } = useSelector(state => state.user)
 
     const submitHandler = async (credentials) => {
-        console.log("register credentials", credentials)
         dispatch(signup(credentials))
     }
 

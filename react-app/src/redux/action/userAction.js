@@ -7,7 +7,6 @@ const errorMessage = (message) => ({
 })
 
 export const signup = (user) => {
-    console.log("base url",process.env.REACT_APP_BASE_URL)
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/user/`,user)
         .then(user => {
@@ -17,7 +16,6 @@ export const signup = (user) => {
             })
         })
         .catch(err => {
-            console.log("error",err)
             alert(err.response.data.err)
             dispatch(errorMessage(err.response.data))
         })
@@ -36,7 +34,6 @@ export const login = (user) => {
             })
         })
         .catch(err => {
-            console.log("login error",err)
             alert(err.response.data.err)
             dispatch(errorMessage(err.response.data))
         })

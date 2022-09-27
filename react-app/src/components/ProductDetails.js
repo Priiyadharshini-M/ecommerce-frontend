@@ -11,7 +11,6 @@ export const ProductDetails = () => {
     const id = useParams()
     const { productDetail, successMessage } = useSelector(state => state.product)
     const { userId } = useSelector(state => state.user)
-    console.log("id is", id.id)
 
     const addCart = (id) => {
         dispatch(addToCart({
@@ -46,7 +45,8 @@ export const ProductDetails = () => {
                                     <img className=" rounded-6 border border-2 float-start" id={styles.image} src={product.productImage} alt="Fails to load" />
                                     </div>
                                     <div className='row'>
-                                    <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>
+                                    {product.stock>0 && <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>}
+                                    {product.stock<=0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
                                     </div>
                                 </div>
                                 <div className="col-12 col-xl-6 col-lg-6 col-md-6">

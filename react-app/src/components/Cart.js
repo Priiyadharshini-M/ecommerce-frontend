@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { order, removeFromCart, updateCart, viewCart } from "../redux/action/productAction"
+import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./Cart.module.css";
 import CurrencyFormat from 'react-currency-format';
@@ -14,7 +14,7 @@ export const Cart = () => {
     const { cart, successMessage } = useSelector(state => state.product)
     const [showModal, setShowModal] = useState(false)
     var sum = 0
-    console.log("cart in redux", cart)
+    var amount = 0
 
     const increase = (id, quantity) => {
         quantity = quantity + 1
@@ -33,22 +33,22 @@ export const Cart = () => {
     }
     const handleShow = () => {
         setShowModal(() => (true))
-        console.log(showModal)
     }
     const handleClose = () => {
         setShowModal(() => (false))
-        console.log(showModal)
     }
     const handleConfirm = (cart) => {
-        console.log("cart to order", cart)
         for (let count = 0; count < cart.length; count++) {
+            if(cart[count].productId.stock>0){
             dispatch(order({
                 userId,
                 productId: cart[count].productId._id,
                 quantity: cart[count].quantity,
                 amount: cart[count].productId.price * cart[count].quantity
             }))
+            dispatch(updateProduct(cart[count].productId._id, cart[count].productId.stock - cart[count].quantity))
             dispatch(removeFromCart(cart[count]._id))
+         }
         }
         navigate('/orders')
     }
@@ -91,6 +91,8 @@ export const Cart = () => {
                                                     <p className="fs-4 mt-3"><i>{cart.productId.description}</i></p><br /><br />
                                                     <p className="fs-3 font-weight-bold mt-5"><CurrencyFormat value={cart.productId.price} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></p>
                                                 </div><br />
+                                    {cart.productId.stock<=0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
+
                                                 <div className="row">
                                                     <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-5 text-white fs-5 rounded-6" onClick={() => remove(cart._id)}>Remove</button>
                                                 </div>
@@ -106,20 +108,21 @@ export const Cart = () => {
                             <div className="row mt-3 bg-warning bg-opacity-25">
                                 <h1 className="mt-4">PRICE DETAILS<hr /></h1>
                                 {cart && cart.map((cart) => {
-                                    const amount = cart.quantity * cart.productId.price
+                                     if(cart.productId.stock>0){
+                                    amount = cart.quantity * cart.productId.price
                                     sum = sum + amount
+                                     }
                                     return (
                                         <div key={cart._id}>
-                                            <div className="fs-3 mb-4">{cart.productId.productName} ({cart.quantity}piece(s)) - <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></div>
+                                            { cart.productId.stock>0 && <div className="fs-3 mb-4">{cart.productId.productName} ({cart.quantity}piece(s)) - <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></div> }
                                         </div>
                                     )
                                 })}
                                 <div><hr /></div>
                                 <h4 className="font-weight-bold">Total Amount - <CurrencyFormat value={sum} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></h4>
-
                             </div>
-                            <div className="row">
-                                <button className="btn btn-success w-100 font-weight-bold bg-gradient text-white my-5 text-white fs-2 px-3 rounded-6 " onClick={handleShow}>Place order</button>
+                            <div className="row d-flex justify-content-center">
+                                <button className="btn btn-success w-50 font-weight-bold bg-gradient text-white my-5 text-white fs-2 px-3 rounded-6 " onClick={handleShow} >Place order</button>
                             </div>
                         </div>
                     </div>

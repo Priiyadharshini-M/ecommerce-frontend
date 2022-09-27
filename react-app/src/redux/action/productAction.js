@@ -16,7 +16,21 @@ export const addProduct = (product) => {
             })
         })
         .catch(err => {
-            console.log(err)
+            alert(err.response.data.err)
+        })
+    }
+}
+
+export const updateProduct = (id,stock) => {
+    return async(dispatch) => {
+        await axios.put(`${process.env.REACT_APP_BASE_URL}/product/${id}`,{stock:stock})
+        .then(product => {
+            dispatch({
+                type: types.UPDATE_PRODUCT,
+                payload: product
+            })
+        })
+        .catch(err => {
             alert(err.response.data.err)
         })
     }
@@ -26,7 +40,6 @@ export const viewProducts = () => {
     return async(dispatch) => {
         await axios.get(`${process.env.REACT_APP_BASE_URL}/product/`)
         .then(product => {
-            console.log(product)
             dispatch({
                 type: types.VIEW_PRODUCTS,
                 payload: product.data
@@ -42,7 +55,6 @@ export const viewProductTypes = () => {
     return async(dispatch) => {
         await axios.get(`${process.env.REACT_APP_BASE_URL}/product/types/pro`)
         .then(product => {
-            console.log(product)
             dispatch({
                 type: types.VIEW_PRODUCT_TYPES,
                 payload: product.data
@@ -55,11 +67,9 @@ export const viewProductTypes = () => {
 }
 
 export const viewFilteredProducts = (productType) => {
-    console.log("product type",productType)
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/product/filteredProducts`,{productType:productType})
         .then(product => {
-            console.log(product)
             dispatch({
                 type: types.VIEW_PRODUCTS,
                 payload: product.data
@@ -75,7 +85,6 @@ export const viewIndividualProduct = (id) => {
     return async(dispatch) => {
         await axios.get(`${process.env.REACT_APP_BASE_URL}/product/${id}`)
         .then(product => {
-            console.log("individual product",product)
             dispatch({
                 type: types.VIEW_PRODUCT,
                 payload: product.data.product
@@ -88,11 +97,9 @@ export const viewIndividualProduct = (id) => {
 }
 
 export const addToCart = (product) => {
-    console.log("add to cart send product",product)
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/cart/`,product)
         .then(cart => {
-            console.log("add to cart",cart)
             dispatch({
                 type: types.ADD_TO_CART,
                 payload: cart
@@ -108,26 +115,21 @@ export const viewCart = (id) => {
     return async(dispatch) => {
         await axios.get(`${process.env.REACT_APP_BASE_URL}/cart/${id}`)
         .then(cart => {
-            console.log(cart)
             dispatch({
                 type: types.VIEW_CART,
                 payload: cart.data
             })
         })
         .catch(err => {
-            console.log("error",err)
-            //alert(err.response.data.err)
             dispatch(errorMessage(err.response.data))
         })
     }
 }
 
 export const updateCart = (product, id) => {
-    console.log("update cart send product",product)
     return async(dispatch) => {
         await axios.put(`${process.env.REACT_APP_BASE_URL}/cart/${id}`,product)
         .then(cart => {
-            console.log("add to cart",cart)
             dispatch({
                 type: types.UPDATE_CART,
                 payload: cart
@@ -143,7 +145,6 @@ export const removeFromCart = (id) => {
     return async(dispatch) => {
         await axios.delete(`${process.env.REACT_APP_BASE_URL}/cart/${id}`)
         .then(cart => {
-            console.log(cart)
             dispatch({
                 type: types.REMOVE_FROM_CART,
                 payload: cart.data
@@ -156,11 +157,9 @@ export const removeFromCart = (id) => {
 }
 
 export const order = (order) => {
-    console.log("order send product",order)
     return async(dispatch) => {
         await axios.post(`${process.env.REACT_APP_BASE_URL}/order/`,order)
         .then(order => {
-            console.log("orders",order)
             dispatch({
                 type: types.MAKE_ORDER,
                 payload: order
@@ -176,15 +175,28 @@ export const viewOrder = (id) => {
     return async(dispatch) => {
         await axios.get(`${process.env.REACT_APP_BASE_URL}/order/${id}`)
         .then(order => {
-            console.log(order)
             dispatch({
                 type: types.VIEW_ORDER,
                 payload: order.data
             })
         })
         .catch(err => {
-            //alert(err.response.data.err)
-            //dispatch(errorMessage(err.response.data))
+            dispatch(errorMessage(err.response.data))
+        })
+    }
+}
+
+export const cancelOrder = (id) => {
+    return async(dispatch) => {
+        await axios.put(`${process.env.REACT_APP_BASE_URL}/order/${id}`)
+        .then(order => {
+            dispatch({
+                type: types.CANCEL_ORDER,
+                payload: order
+            })
+        })
+        .catch(err => {
+            alert(err.response.data.err)
         })
     }
 }

@@ -21,7 +21,6 @@ export const Login = () => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        console.log("login credentials", credentials)
         dispatch(login(credentials))
     }
 

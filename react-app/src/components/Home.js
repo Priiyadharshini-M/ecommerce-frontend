@@ -69,7 +69,8 @@ export const Home = () => {
                                                         &nbsp;<span className="text-black fs-3"><b>{product.productCategory}&nbsp;</b></span>
                                                     </span>
                                                     <span className='text-center'><i>{product.description}</i></span><br /><br />
-                                                    <b>Available : </b><span>{product.stock} piece(s)</span>
+                                                    <b>Available : </b><span>{product.stock} piece(s)</span><br />
+                                                    {product.stock<=0 && <span className='text-danger fs-4 font-weight-bold'>Out of stock</span>}
                                                 </p>
 
                                                 <div>

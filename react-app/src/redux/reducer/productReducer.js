@@ -36,7 +36,6 @@ export const productReducer = (state=initialState, action) => {
                 productDetail:action.payload
             }
         case types.VIEW_PRODUCT_TYPES:
-            console.log("productttttt typessss",action.payload.productType)
             return{
                 ...state,
                 successMessage:'',

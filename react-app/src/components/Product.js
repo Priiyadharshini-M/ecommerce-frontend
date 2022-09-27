@@ -13,7 +13,6 @@ export const Product = () => {
     const { successMessage } = useSelector(state => state.product)
 
     const submitHandler = async (productDetails) => {
-        console.log("product details", productDetails)
         dispatch(addProduct(productDetails))
     }
 
