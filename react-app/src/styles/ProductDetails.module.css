@@ -1,12 +1,18 @@
-#image{
+#image {
     width: 50%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
-.margin{
+
+#link{
+    text-decoration: none;
+}
+
+.margin {
     margin-left: 25%;
 }
-#cart{
+
+#cart {
     position: relative;
     margin-bottom: 150%;
     font-size: small;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./Cart.module.css";
+import styles from '../styles/Cart.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
@@ -10,8 +10,8 @@ import { Button, Modal } from 'react-bootstrap'
 export const Cart = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { userId, errorMessage } = useSelector(state => state.user)
-    const { cart, successMessage } = useSelector(state => state.product)
+    const { userId } = useSelector(state => state.user)
+    const { cart, successMessage, errorMessage } = useSelector(state => state.product)
     const [showModal, setShowModal] = useState(false)
     var sum = 0
     var amount = 0
@@ -39,16 +39,16 @@ export const Cart = () => {
     }
     const handleConfirm = (cart) => {
         for (let count = 0; count < cart.length; count++) {
-            if(cart[count].productId.stock>0){
-            dispatch(order({
-                userId,
-                productId: cart[count].productId._id,
-                quantity: cart[count].quantity,
-                amount: cart[count].productId.price * cart[count].quantity
-            }))
-            dispatch(updateProduct(cart[count].productId._id, cart[count].productId.stock - cart[count].quantity))
-            dispatch(removeFromCart(cart[count]._id))
-         }
+            if (cart[count].productId.stock > 0) {
+                dispatch(order({
+                    userId,
+                    productId: cart[count].productId._id,
+                    quantity: cart[count].quantity,
+                    amount: cart[count].productId.price * cart[count].quantity
+                }))
+                dispatch(updateProduct(cart[count].productId._id, cart[count].productId.stock - cart[count].quantity))
+                dispatch(removeFromCart(cart[count]._id))
+            }
         }
         navigate('/orders')
     }
@@ -87,11 +87,11 @@ export const Cart = () => {
                                             </div>
                                             <div className="col-6">
                                                 <div className="row">
-                                                    <p className="fs-3 font-weight-bold d-flex text-align-center justify-content-center">{cart.productId.productName}</p><br />
+                                                    <button className="border border-0 text-decoration-underline" id={styles.container} onClick={() => navigate(`/product/${cart.productId._id}`)}><p className="fs-3 font-weight-bold d-flex text-align-center justify-content-center">{cart.productId.productName}</p></button><br />
                                                     <p className="fs-4 mt-3"><i>{cart.productId.description}</i></p><br /><br />
                                                     <p className="fs-3 font-weight-bold mt-5"><CurrencyFormat value={cart.productId.price} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></p>
                                                 </div><br />
-                                    {cart.productId.stock<=0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
+                                                {cart.productId.stock <= 0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
 
                                                 <div className="row">
                                                     <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-5 text-white fs-5 rounded-6" onClick={() => remove(cart._id)}>Remove</button>
@@ -108,13 +108,13 @@ export const Cart = () => {
                             <div className="row mt-3 bg-warning bg-opacity-25">
                                 <h1 className="mt-4">PRICE DETAILS<hr /></h1>
                                 {cart && cart.map((cart) => {
-                                     if(cart.productId.stock>0){
-                                    amount = cart.quantity * cart.productId.price
-                                    sum = sum + amount
-                                     }
+                                    if (cart.productId.stock > 0) {
+                                        amount = cart.quantity * cart.productId.price
+                                        sum = sum + amount
+                                    }
                                     return (
                                         <div key={cart._id}>
-                                            { cart.productId.stock>0 && <div className="fs-3 mb-4">{cart.productId.productName} ({cart.quantity}piece(s)) - <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></div> }
+                                            {cart.productId.stock > 0 && <div className="fs-3 mb-4">{cart.productId.productName} ({cart.quantity}piece(s)) - <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></div>}
                                         </div>
                                     )
                                 })}
@@ -141,7 +141,7 @@ export const Cart = () => {
                 </Modal.Footer>
             </Modal>
 
-            {errorMessage &&
+            {cart.length<=0 && errorMessage &&
                 <div className="container h-100 d-flex justify-content-center">
                     <div>
                         <h1 className="mt-3">{errorMessage}</h1>

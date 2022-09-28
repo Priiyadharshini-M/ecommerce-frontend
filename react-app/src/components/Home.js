@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { viewFilteredProducts, viewProducts, viewProductTypes } from '../redux/action/productAction'
-import styles from "./Home.module.css";
+import styles from '../styles/Home.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom';
 import SweetPagination from 'sweetpagination';
@@ -19,11 +19,11 @@ export const Home = () => {
 
     return (
         <>
-            <div className='row '>
-                <div className="col col-sm-12 col-md-8 col-lg-12 mb-2 me-5 mt-4 filter fs-4 ml-5">
+            <div className='row container'>
+                <div className="col col-sm-12 col-md-8 col-lg-12 mb-2 mt-4 fs-4 ml-5">
                     <label htmlFor="filterByState">Filter</label>&nbsp;&nbsp;
                     <i className="bi bi-filter"></i>&nbsp;&nbsp;
-                    <select className="row-cols-lg-12 mt-2 border border-3 rounded-3 bg-light text-black me-3" id="productType"
+                    <select className="row-cols-lg-12 mt-2 border border-3 rounded-3 bg-light text-black" id="productType"
                         name="productType" type="text" onChange={event => {
                             if (!event.target.value) {
                                 dispatch(viewProducts())
@@ -70,7 +70,7 @@ export const Home = () => {
                                                     </span>
                                                     <span className='text-center'><i>{product.description}</i></span><br /><br />
                                                     <b>Available : </b><span>{product.stock} piece(s)</span><br />
-                                                    {product.stock<=0 && <span className='text-danger fs-4 font-weight-bold'>Out of stock</span>}
+                                                    {product.stock <= 0 && <span className='text-danger fs-4 font-weight-bold'>Out of stock</span>}
                                                 </p>
 
                                                 <div>
@@ -84,7 +84,7 @@ export const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            
+
                         )
                     })}
                 </div>

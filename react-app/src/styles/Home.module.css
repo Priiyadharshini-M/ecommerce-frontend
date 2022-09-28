@@ -1,31 +1,40 @@
-.cardbody,.sort,.filter,.footer{
-    font-size:large;
+.cardbody,
+.sort,
+.filter,
+.footer {
+    font-size: large;
 }
-#cardtitle{
+
+#cardtitle {
     font-weight: bolder;
 }
-#price{
+
+#price {
     margin-left: 50%;
 }
-#name{
+
+#name {
     font-weight: bolder;
     font-size: x-large;
     color: black;
 }
+
 #card {
-    transition: .5s ;
+    transition: .5s;
     cursor: pointer;
-    box-shadow:15px 5px 5px
+    box-shadow: 15px 5px 5px
 }
 
 #card:hover {
     transform: scale(1.05);
     box-shadow: 0 80px 80px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
 }
-#image{
+
+#image {
     width: 60%;
 }
-.head{
+
+.head {
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;

@@ -1,12 +1,15 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { login } from "../redux/action/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { successMessage } = useSelector(state => state.user)
+    const { successMessage, success } = useSelector(state => state.user)
     const [credentials, setCredentials] = useState({
         userEmail: '',
         password: ''
@@ -25,16 +28,19 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if (successMessage !== '') {
-            alert(successMessage)
-            navigate('/home')
-            window.location.reload()
+        if (successMessage === "Successfully logged in") {
+            toast.success(successMessage, {
+                autoClose : 1500
+            })
+            setTimeout(() => {navigate('/home')
+            window.location.reload()}, 2000)
         }
         // eslint-disable-next-line
-    }, [successMessage])
+    }, [successMessage, success])
 
     return (
         <>
+        {/* <ToastContainer /> */}
             <div className="container h-100 ">
                 <div className="row mt-5">
                     <div className="col-lg-12 form d-flex justify-content-center align-items-center mt-5">
@@ -55,7 +61,7 @@ export const Login = () => {
                                                 <button className="btn btn-primary bg-gradient text-white mt-3 text-white fs-5 rounded-6" type="submit">Login</button>
                                             </div>
                                             <div className="text-center h5 mt-3">
-                                                <a className="mx-3 h6 fs-5" type="text" href="/"><span className="text-primary">Back to register</span></a>
+                                                <a className="mx-3 h6 fs-5" type="text" href="/register"><span className="text-primary">Don't have an account? Register</span></a>
                                             </div>
                                         </form>
                                     </div>

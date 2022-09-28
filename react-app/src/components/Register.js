@@ -10,7 +10,7 @@ export const Register = () => {
     let { register, handleSubmit, formState: { errors }, watch } = useForm({
         mode: 'onTouched'
     })
-    const { successMessage } = useSelector(state => state.user)
+    const { successMessage, success } = useSelector(state => state.user)
 
     const submitHandler = async (credentials) => {
         dispatch(signup(credentials))
@@ -19,18 +19,17 @@ export const Register = () => {
     const password = watch('password')
 
     useEffect(() => {
-        if (successMessage !== '') {
+        if (success) {
             alert(successMessage)
             navigate('/login')
-            //window.location.reload()
         }
         // eslint-disable-next-line
-    }, [successMessage])
+    }, [successMessage, success])
 
     return (
         <>
-            <div className="container h-100 ">
-                <div className="row mt-5">
+            <div className="container h-100 mb-5">
+                <div className="row">
                     <div className="col-lg-12 form d-flex justify-content-center align-items-center">
                         <div className="card text-black bg-light mb-5 w-50">
                             <div className="card-body">
@@ -74,7 +73,7 @@ export const Register = () => {
                                             <input type="password" {...register('password', {
                                                 required: '**Password required',
                                                 pattern: {
-                                                    value: /^[a-zA-Z0-9]{5,20}$/,
+                                                    value: /^[a-zA-Z0-9]{5,12}$/,
                                                     message: '**Password should contain atleast 5 characters and no special characters allowed'
                                                 }
                                             })} className="form-control mx-3 fs-5" placeholder="Enter password" ></input>

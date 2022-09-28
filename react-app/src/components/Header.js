@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../redux/action/userAction'
 import jwtDecode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import styles from "./ProductDetails.module.css";
+import styles from '../styles/ProductDetails.module.css'
 import { useEffect } from 'react';
 import { viewCart } from '../redux/action/productAction';
 
@@ -25,10 +25,10 @@ export const Header = () => {
   }
 
   useEffect(() => {
-    if(userId!==''){
-    dispatch(viewCart(userId))
+    if (userId !== '' && user === 'user') {
+      dispatch(viewCart(userId))
     }
-  },[dispatch, userId])
+  }, [dispatch, userId, user])
 
   return (
     <div>
@@ -60,10 +60,10 @@ export const Header = () => {
             </ul>
 
 
-            { user === 'user' && <span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
-              aria-disabled="true" className='text-decoration-none' title="View cart" href='/cart'><span className="bi bi-cart fs-1 text-white me-3"> <span className=''><sup id={styles.cart}>{cartCount}</sup></span></span></a></span></span> }
-            {userId !== '' && <><span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
-              aria-disabled="true" title="View profile" href='/profile'><i className="bi bi-person-circle fs-1 text-white me-3"></i><span
+            {user === 'user' && <span className="nav-item me-5 float-end text-white "><span className="ms-3 fs-1 "><a
+              aria-disabled="true" className='text-decoration-none' title="View cart" href='/cart'><span className="bi bi-cart fs-1 text-white me-3"> <span className=''><sup id={styles.cart}>{cartCount}</sup></span></span></a></span></span>}
+            {userId !== '' && <><span className="nav-item me-5 float-end text-white " ><span className="ms-3 fs-1 " ><a
+              aria-disabled="true" title="View profile" href='/profile' id={styles.link}><i className="bi bi-person-circle fs-1 text-white me-3"></i><span
                 className="text-white fs-3 me-3">{decodedToken.userName}</span></a></span>
             </span> <li className="nav-item p-3 h2"><button className="nav-link mx-3 text-white bg-dark border border-0" aria-disabled="false" onClick={logoutHandler}>Logout &nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i></button></li></>}
             {userId === '' && <span className="nav-item me-5 float-end text-white pb-4"><span className="ms-3 fs-1 "><a

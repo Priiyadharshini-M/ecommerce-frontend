@@ -1,83 +1,89 @@
 import * as types from '../action/actionTypes'
 
 const initialState = {
-    successMessage:'',
-    success:false,
-    loading:true,
-    products:[],
-    productTypes:[],
-    productDetail:'',
-    productCount:0,
-    cart:[],
-    order:[],
-    orderCount:0,
-    cartCount:0
+    successMessage: '',
+    success: false,
+    loading: true,
+    products: [],
+    productTypes: [],
+    productDetail: '',
+    productCount: 0,
+    cart: [],
+    order: [],
+    orderCount: 0,
+    cartCount: 0
 }
 
-export const productReducer = (state=initialState, action) => {
-    switch(action.type){
+export const productReducer = (state = initialState, action) => {
+    switch (action.type) {
         case types.ADD_PRODUCTS:
-            return{
-            ...state,
-            successMessage:action.payload.data.message,
-            loading:false
+            return {
+                ...state,
+                successMessage: action.payload.data.message,
+                loading: false
             }
         case types.VIEW_PRODUCTS:
-            return{
+            return {
                 ...state,
-                successMessage:'',
-                products:action.payload.product,
-                productCount:action.payload.productCount
+                successMessage: '',
+                products: action.payload.product,
+                productCount: action.payload.productCount
             }
         case types.VIEW_PRODUCT:
-            return{
+            return {
                 ...state,
-                successMessage:'',
-                productDetail:action.payload
+                successMessage: '',
+                productDetail: action.payload
             }
         case types.VIEW_PRODUCT_TYPES:
-            return{
+            return {
                 ...state,
-                successMessage:'',
-                productTypes:action.payload.productType
+                successMessage: '',
+                productTypes: action.payload.productType
             }
         case types.ADD_TO_CART:
-            return{
+            return {
                 ...state,
-                successMessage:action.payload.data.message,
-                loading:false
-        }
+                successMessage: action.payload.data.message,
+                loading: false
+            }
         case types.VIEW_CART:
-            return{
+            return {
                 ...state,
-                successMessage:'',
-                cart:action.payload.cart,
-                cartCount:action.payload.cartCount
+                successMessage: '',
+                cart: action.payload.cart,
+                cartCount: action.payload.cartCount
             }
         case types.UPDATE_CART:
-            return{
+            return {
                 ...state,
-                successMessage:action.payload.data.message
+                successMessage: action.payload.data.message
             }
         case types.REMOVE_FROM_CART:
-            return{
+            return {
                 ...state,
-                successMessage:action.payload.message
+                successMessage: action.payload.message
             }
         case types.MAKE_ORDER:
-            return{
+            return {
                 ...state,
-                successMessage:action.payload.data.message
+                successMessage: action.payload.data.message
             }
         case types.VIEW_ORDER:
-            return{
+            return {
                 ...state,
-                successMessage:'',
-                order:action.payload.order,
-                orderCount:action.payload.orderCount
+                successMessage: '',
+                order: action.payload.order,
+                orderCount: action.payload.orderCount
+            }
+        case types.ERROR_MESSAGE:
+            return {
+                ...state,
+                errorMessage: action.payload,
+                loading: false
             }
         default:
-            return{
+            return {
                 ...initialState
             }
     }
