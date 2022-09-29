@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signup } from "../redux/action/userAction"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify';
 
 export const Register = () => {
     const dispatch = useDispatch()
@@ -20,7 +21,7 @@ export const Register = () => {
 
     useEffect(() => {
         if (success) {
-            alert(successMessage)
+            toast.success(successMessage)
             navigate('/login')
         }
         // eslint-disable-next-line

@@ -62,7 +62,7 @@ export const Home = () => {
                                                     title={product.productName}>{product.productName}</p>
                                             </div>
                                             <div className='d-flex align-item-center justify-content-center'>
-                                                <img className="mx-4 rounded-6 border border-2 " id={styles.image} src={product.productImage} alt="Fails to load" /></div>
+                                                <img className="mx-4 rounded-6 border border-2 " id={styles.image} src={product.productImage[0]} alt="Fails to load" /></div>
                                             <div className={styles.cardbody}>
                                                 <p className="card-text mb-5">
                                                     <span className="col overflow-hidden text-truncate text-nowrap bg- d-flex align-item-center justify-content-center">

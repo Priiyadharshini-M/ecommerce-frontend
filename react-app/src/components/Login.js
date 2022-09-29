@@ -32,8 +32,8 @@ export const Login = () => {
             toast.success(successMessage, {
                 autoClose : 1500
             })
-            setTimeout(() => {navigate('/home')
-            window.location.reload()}, 2000)
+            navigate('/home')
+            setTimeout(() => {window.location.reload()}, 2000)
         }
         // eslint-disable-next-line
     }, [successMessage, success])

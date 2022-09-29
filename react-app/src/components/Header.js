@@ -28,7 +28,7 @@ export const Header = () => {
     if (userId !== '' && user === 'user') {
       dispatch(viewCart(userId))
     }
-  }, [dispatch, userId, user])
+  }, [dispatch, userId, user, cartCount])
 
   return (
     <div>

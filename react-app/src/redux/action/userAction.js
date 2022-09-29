@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as types from './actionTypes'
+import { toast } from 'react-toastify';
 
 export const signup = (user) => {
     return async (dispatch) => {
@@ -11,7 +12,7 @@ export const signup = (user) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -28,7 +29,7 @@ export const login = (user) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }

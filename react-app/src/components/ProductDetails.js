@@ -1,9 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, viewIndividualProduct } from "../redux/action/productAction"
 import { useParams, useNavigate } from 'react-router-dom'
 import styles from '../styles/ProductDetails.module.css'
 import CurrencyFormat from 'react-currency-format';
+import { toast } from 'react-toastify';
 
 export const ProductDetails = () => {
     const dispatch = useDispatch()
@@ -11,6 +12,7 @@ export const ProductDetails = () => {
     const id = useParams()
     const { productDetail, successMessage } = useSelector(state => state.product)
     const { userId } = useSelector(state => state.user)
+    const [src, setSrc] = useState('')
 
     const addCart = (id) => {
         dispatch(addToCart({
@@ -19,6 +21,9 @@ export const ProductDetails = () => {
             quantity: 1
         }))
     }
+    const mouseEnter = (img) => {
+        setSrc(img)
+    }
 
     useEffect(() => {
         dispatch(viewIndividualProduct(id.id))
@@ -26,7 +31,7 @@ export const ProductDetails = () => {
 
     useEffect(() => {
         if (successMessage !== '') {
-            alert(successMessage)
+            toast.success(successMessage)
             navigate('/cart')
             //window.location.reload()
         }
@@ -37,12 +42,26 @@ export const ProductDetails = () => {
         <>
             <div className="container h-100 mt-5">
                 {productDetail && productDetail.map((product) => {
+                    const source = src || product.productImage[0]
+
                     return (
                         <div key={product._id}>
                             <div className="row row-cols-xl-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2 rounded-lg">
                                 <div className="col-6">
                                     <div className='row'>
-                                        <img className=" rounded-6 border border-2 float-start" id={styles.image} src={product.productImage} alt="Fails to load" onMouseOver={(e) => (e.currentTarget.src="https://rukminim1.flixcart.com/image/416/416/l5jxt3k0/gimbal/s/r/u/black-1-13-weebill-3-standard-zhiyun-original-imagg7cwabfjrrz5.jpeg?q=70")}/>
+                                        <div className="col-3">
+                                            <div className="row">
+                                                {product.productImage && product.productImage.map((image) => {
+                                                    return (
+                                                        <div key={image}>
+                                                            <img className="w-50" id={styles.image} src={image} alt="Fails to load" onClick={(e) => mouseEnter(e.currentTarget.src)} />
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+                                        <div className="row w-75 h-100 rounded-6 border border-2 float-start"><img src={source} alt="not found" />
+                                        </div>
                                     </div>
                                     <div className='row'>
                                         {product.stock > 0 && <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>}

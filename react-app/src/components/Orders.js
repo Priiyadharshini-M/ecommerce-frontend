@@ -32,7 +32,7 @@ export const Orders = () => {
                             <div className="container bg-light my-5 w-50 d-flex justify-content-center align-item-center" type='button' id={styles.card} onClick={() => navigate(`/product/${order.productId._id}`)}>
                                 <div className="row rounded-lg mb-5 mt-5 ">
                                     <div className="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-                                        <img src={order.productId.productImage} alt='Not found' className={styles.image} /><br /><br />
+                                        <img src={order.productId.productImage[0]} alt='Not found' className={styles.image} /><br /><br />
                                         {role === "user" && order.status === "Active" && <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-5 text-white fs-5 rounded-6" onClick={() => cancelHandler(order._id, order.productId._id, order.productId.stock + order.quantity)}>Cancel order</button>}
                                         {role === "admin" && <><br /><p className="fs-4">Customer name : {order.userId.userName} <br /> Email : {order.userId.userEmail}</p></>}
                                     </div>

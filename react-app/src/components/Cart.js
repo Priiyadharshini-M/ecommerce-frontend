@@ -6,6 +6,7 @@ import styles from '../styles/Cart.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
+import { toast } from 'react-toastify';
 
 export const Cart = () => {
     const dispatch = useDispatch()
@@ -55,15 +56,11 @@ export const Cart = () => {
 
     useEffect(() => {
         dispatch(viewCart(userId))
-    }, [dispatch, userId])
-
-    useEffect(() => {
         if (successMessage === 'Updated quantity' || successMessage === 'Removed from cart') {
-            alert(successMessage)
-            window.location.reload()
+            toast.success(successMessage)
         }
         // eslint-disable-next-line
-    }, [successMessage])
+    }, [successMessage,dispatch,userId])
 
     return (
         <>
@@ -77,7 +74,7 @@ export const Cart = () => {
                                         <div className="row row-cols-xl-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-2 rounded-lg mb-5 mt-5 ">
                                             <div className="col-6">
                                                 <div className='row'>
-                                                    <img src={cart.productId.productImage} alt="Not found" className={styles.image} />
+                                                    <img src={cart.productId.productImage[0]} alt="Not found" className={styles.image} />
                                                 </div>
                                                 <div className="row mt-4">
                                                     <span className="font-weight-bold">{cart.quantity >= 1 && <button className="border border-0 bg-transparent" onClick={() => decrease(cart._id, cart.quantity)}><i className="bi bi-dash-circle font-weight-bold fs-1"></i></button>}

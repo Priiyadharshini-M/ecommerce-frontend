@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from "../redux/action/productAction"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify';
 
 export const Product = () => {
     const dispatch = useDispatch()
@@ -18,9 +19,9 @@ export const Product = () => {
 
     useEffect(() => {
         if (successMessage !== '') {
-            alert(successMessage)
+            toast.success(successMessage)
             navigate('/home')
-            window.location.reload()
+            setTimeout(() => {window.location.reload()}, 2000)
         }
         // eslint-disable-next-line
     }, [successMessage])

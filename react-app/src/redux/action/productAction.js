@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as types from './actionTypes'
+import { toast } from 'react-toastify';
 
 const errorMessage = (message) => ({
     type: types.ERROR_MESSAGE,
@@ -16,7 +17,7 @@ export const addProduct = (product) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -31,7 +32,7 @@ export const updateProduct = (id, stock) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -46,7 +47,7 @@ export const viewProducts = () => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -61,7 +62,7 @@ export const viewProductTypes = () => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -76,7 +77,7 @@ export const viewFilteredProducts = (productType) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -91,7 +92,7 @@ export const viewIndividualProduct = (id) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -106,7 +107,7 @@ export const addToCart = (product) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -136,7 +137,7 @@ export const updateCart = (product, id) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -151,7 +152,7 @@ export const removeFromCart = (id) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -166,7 +167,7 @@ export const order = (order) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
@@ -196,7 +197,7 @@ export const cancelOrder = (id) => {
                 })
             })
             .catch(err => {
-                alert(err.response.data.err)
+                toast.error(err.response.data.err)
             })
     }
 }
