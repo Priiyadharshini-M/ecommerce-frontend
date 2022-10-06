@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from '../styles/Cart.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
 import { toast } from 'react-toastify';
+import styles from '../styles/Cart.module.css'
+import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 
 export const Cart = () => {
     const dispatch = useDispatch()
@@ -91,7 +91,7 @@ export const Cart = () => {
                                                 {cart.productId.stock <= 0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
 
                                                 <div className="row">
-                                                    <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-5 text-white fs-5 rounded-6" onClick={() => remove(cart._id)}>Remove</button>
+                                                    <button className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-5 text-white fs-5 rounded-6" id="remove_button" data-testid="removeButton" onClick={() => remove(cart._id)}>Remove</button>
                                                 </div>
                                             </div>
                                         </div><hr />

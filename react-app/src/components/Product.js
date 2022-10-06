@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { addProduct } from "../redux/action/productAction"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
+import { addProduct } from "../redux/action/productAction"
 
 export const Product = () => {
     const dispatch = useDispatch()

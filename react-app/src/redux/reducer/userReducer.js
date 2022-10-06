@@ -1,5 +1,5 @@
-import * as types from '../action/actionTypes'
 import jwtDecode from 'jwt-decode'
+import * as types from '../action/actionTypes'
 
 const token = sessionStorage.getItem('token')
 let user

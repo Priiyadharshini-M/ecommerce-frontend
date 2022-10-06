@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { viewFilteredProducts, viewProducts, viewProductTypes } from '../redux/action/productAction'
-import styles from '../styles/Home.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { useNavigate } from 'react-router-dom';
 import SweetPagination from 'sweetpagination';
+import { viewFilteredProducts, viewProducts, viewProductTypes } from '../redux/action/productAction'
+import styles from '../styles/Home.module.css'
 
 export const Home = () => {
     const { products, productTypes } = useSelector(state => state.product)

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import * as types from './actionTypes'
 import { toast } from 'react-toastify';
+import * as types from './actionTypes'
 
 const errorMessage = (message) => ({
     type: types.ERROR_MESSAGE,

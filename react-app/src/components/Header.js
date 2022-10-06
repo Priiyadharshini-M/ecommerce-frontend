@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../redux/action/userAction'
 import jwtDecode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import styles from '../styles/ProductDetails.module.css'
 import { useEffect } from 'react';
+import styles from '../styles/ProductDetails.module.css'
+import { logout } from '../redux/action/userAction'
 import { viewCart } from '../redux/action/productAction';
 
 export const Header = () => {

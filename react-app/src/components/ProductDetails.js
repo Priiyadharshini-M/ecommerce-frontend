@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, viewIndividualProduct } from "../redux/action/productAction"
 import { useParams, useNavigate } from 'react-router-dom'
-import styles from '../styles/ProductDetails.module.css'
 import CurrencyFormat from 'react-currency-format';
 import { toast } from 'react-toastify';
+import { addToCart, viewIndividualProduct } from "../redux/action/productAction"
+import styles from '../styles/ProductDetails.module.css'
 
 export const ProductDetails = () => {
     const dispatch = useDispatch()

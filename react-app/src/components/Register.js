@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { signup } from "../redux/action/userAction"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
+import { signup } from "../redux/action/userAction"
 
 export const Register = () => {
     const dispatch = useDispatch()

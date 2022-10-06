@@ -1,10 +1,12 @@
 import axios from 'axios'
-import { Header } from './components/Header'
-import { Router } from './components/Router'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Footer } from './components/Footer'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from 'react-redux';
+import { store } from './redux/store'
+import { Header } from './components/Header'
+import { Router } from './components/Router'
+import { Footer } from './components/Footer'
 
 axios.interceptors.request.use(
   config => {
@@ -12,7 +14,6 @@ axios.interceptors.request.use(
     return config;
   },
   error => {
-    alert(error)
     return Promise.reject(error);
   }
 )
@@ -20,10 +21,12 @@ axios.interceptors.request.use(
 function App() {
   return (
     <>
+    <Provider store={store}>
       <Header />
       <ToastContainer />
       <Router />
       <Footer />
+      </Provider>
     </>
   );
 }

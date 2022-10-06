@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { cancelOrder, updateProduct, viewOrder } from "../redux/action/productAction"
-import styles from '../styles/Cart.module.css'
 import SweetPagination from 'sweetpagination';
 import { useNavigate } from "react-router-dom";
+import { cancelOrder, updateProduct, viewOrder } from "../redux/action/productAction"
+import styles from '../styles/Cart.module.css'
 
 export const Orders = () => {
     const dispatch = useDispatch()
