@@ -21,7 +21,7 @@ export const Router = () => {
                 <Route path='/product/add' element={<ProtectedRoute isAdmin={true}><Product /></ProtectedRoute>} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/product/:id' element={<ProductDetails />} />
-                <Route path='/cart' element={<Provider store={store}><ProtectedRoute><Cart /></ProtectedRoute></Provider>} />
+                <Route path='/cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
                 <Route path='/orders' element={<ProtectedRoute><Orders /></ProtectedRoute>} />
                 <Route path='*' element={<Home />} />
             </Routes>

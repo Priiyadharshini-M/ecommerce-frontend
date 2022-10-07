@@ -58,12 +58,16 @@ export const Cart = () => {
         dispatch(viewCart(userId))
         if (successMessage === 'Updated quantity' || successMessage === 'Removed from cart') {
             toast.success(successMessage)
+            setTimeout(() => {
+                window.location.reload()
+            }, 3000)
         }
         // eslint-disable-next-line
     }, [successMessage,dispatch,userId])
 
     return (
         <>
+        <h1>hellooo</h1>
             {cart.length > 0 &&
                 <div className="row mx-5">
                     <div className="col-12 col-xl-7 col-lg-7 col-md-9 col-sm-12">
