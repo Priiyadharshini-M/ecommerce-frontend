@@ -7,6 +7,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { toast } from 'react-toastify';
 import styles from '../styles/Cart.module.css'
 import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
+import React from "react";
 
 export const Cart = () => {
     const dispatch = useDispatch()
