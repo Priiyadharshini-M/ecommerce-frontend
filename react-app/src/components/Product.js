@@ -44,13 +44,13 @@ export const Product = () => {
                                 value: 3,
                                 message: '**Product Name should contain atleast 3 letters'
                             }
-                        })} className="form-control mx-3 fs-5" placeholder="Enter product name" ></input>
-                        {errors.productName && <span className="text-danger mx-3 fs-6">{errors.productName.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter product name" data-testid="productName"></input>
+                        {errors.productName && <span className="text-danger mx-3 fs-6" data-testid="productName_Error">{errors.productName.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Attach image:</label>
                         <input type="text" {...register('productImage', {
                             required: '**Image required'
-                        })} className="form-control mx-3 fs-5" placeholder="Attach image"  ></input>
-                        {errors.productImage && <span className="text-danger mx-3 fs-6">{errors.productImage.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Attach image" data-testid="image" ></input>
+                        {errors.productImage && <span className="text-danger mx-3 fs-6" data-testid="image_Error">{errors.productImage.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Description:</label>
                         <input type="text" {...register('description', {
                             required: '**Description required',
@@ -62,14 +62,14 @@ export const Product = () => {
                                 value: 10,
                                 message: '**Description should contain atleast 10 characters'
                             }
-                        })} className="form-control mx-3 fs-5" placeholder="Enter description" ></input>
-                        {errors.description && <span className="text-danger mx-3 fs-6">{errors.description.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter description" data-testid="description"></input>
+                        {errors.description && <span className="text-danger mx-3 fs-6" data-testid="description_Error">{errors.description.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Price:</label>
                         <input type="number" {...register('price', {
                             required: '**Price required',
                             validate: price => price >= 0 || 'Price cannot be less than 0'
-                        })} className="form-control mx-3 fs-5" placeholder="Enter price" ></input>
-                        {errors.price && <span className="text-danger mx-3 fs-6">{errors.price.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter price" data-testid="price"></input>
+                        {errors.price && <span className="text-danger mx-3 fs-6" data-testid="price_Error">{errors.price.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Product Category:</label>
                         <input type="text" {...register('productCategory', {
                             required: 'Product Category required',
@@ -81,8 +81,8 @@ export const Product = () => {
                                 value: 2,
                                 message: '**Product Category should contain atleast 2 letters'
                             }
-                        })} className="form-control mx-3 fs-5" placeholder="Enter category ex: full sleve shirt" ></input>
-                        {errors.productCategory && <span className="text-danger mx-3 fs-6">{errors.productCategory.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter category ex: full sleve shirt" data-testid="productCategory"></input>
+                        {errors.productCategory && <span className="text-danger mx-3 fs-6" data-testid="productCategory_Error">{errors.productCategory.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Product Type:</label>
                         <input type="text" {...register('productType', {
                             required: 'Product Type required',
@@ -94,14 +94,14 @@ export const Product = () => {
                                 value: 2,
                                 message: '**Product Type should contain atleast 2 letters'
                             }
-                        })} className="form-control mx-3 fs-5" placeholder="Enter type ex: shirt" ></input>
-                        {errors.productType && <span className="text-danger mx-3 fs-6">{errors.productType.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter type ex: shirt" data-testid="productType"></input>
+                        {errors.productType && <span className="text-danger mx-3 fs-6" data-testid="productType_Error">{errors.productType.message}</span>}<br />
                         <label className="mx-3 h5 fs-4">Quantity:</label>
                         <input type="number" {...register('stock', {
                             required: 'Stock quantity required',
                             validate: stock => stock > 0 || 'Stock cannot be less than 1'
-                        })} className="form-control mx-3 fs-5" placeholder="Enter stock quantity" ></input>
-                        {errors.stock && <span className="text-danger mx-3 fs-6">{errors.stock.message}</span>}<br />
+                        })} className="form-control mx-3 fs-5" placeholder="Enter stock quantity" data-testid="quantity"></input>
+                        {errors.stock && <span className="text-danger mx-3 fs-6" data-testid="quantity_Error">{errors.stock.message}</span>}<br />
                         <div className="d-flex justify-content-center text-center  mb-lg-4">
                             <button type="submit" className="btn btn-primary bg-gradient text-white mt-3 text-white fs-5 rounded-6">Submit</button>
                         </div>

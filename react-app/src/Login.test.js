@@ -7,8 +7,6 @@ import thunk from "redux-thunk";
 import { Login } from "./components/Login";
 import rootReducer from "./redux/reducer/rootReducer";
 import { ToastContainer } from "react-toastify";
-import { Cart } from "./components/Cart"
-import { Header } from "./components/Header"
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const render = component => rtlRender(
@@ -58,7 +56,6 @@ describe('Login', () => {
 
         const success = await screen.findByText("Successfully logged in")
         expect(success).toBeInTheDocument()
-        //console.log("login",store.getState())
     })
 
     it("email verification", () => {
