@@ -59,24 +59,24 @@ export const Home = () => {
 
                                             <div className="mt-5" id={styles.cardtitle}>
                                                 <p className="col overflow-hidden  font-weight-bold text-truncate text-nowrap text-black bg-opacity- fs-1 px-5 text-center" id={styles.name}
-                                                    title={product.productName}>{product.productName}</p>
+                                                    title={product.productName} data-testid="productName">{product.productName}</p>
                                             </div>
                                             <div className='d-flex align-item-center justify-content-center'>
-                                                <img className="mx-4 rounded-6 border border-2 " id={styles.image} src={product.productImage[0]} alt="Fails to load" /></div>
+                                                <img className="mx-4 rounded-6 border border-2 " id={styles.image} src={product.productImage[0]} data-testid="productImage" alt="Fails to load" /></div>
                                             <div className={styles.cardbody}>
                                                 <p className="card-text mb-5">
                                                     <span className="col overflow-hidden text-truncate text-nowrap bg- d-flex align-item-center justify-content-center">
-                                                        &nbsp;<span className="text-black fs-3"><b>{product.productCategory}&nbsp;</b></span>
+                                                        &nbsp;<span className="text-black fs-3" data-testid="category"><b>{product.productCategory}&nbsp;</b></span>
                                                     </span>
-                                                    <span className='text-center'><i>{product.description}</i></span><br /><br />
-                                                    <b>Available : </b><span>{product.stock} piece(s)</span><br />
+                                                    <span className='text-center' data-testid="description"><i>{product.description}</i></span><br /><br />
+                                                    <b>Available : </b><span data-testid="stock">{product.stock} piece(s)</span><br />
                                                     {product.stock <= 0 && <span className='text-danger fs-4 font-weight-bold'>Out of stock</span>}
                                                 </p>
 
                                                 <div>
                                                     <hr />
                                                     <span className="text-black" id={styles.price}>Price : <span
-                                                        className=" border-dark p-1 fs-2  text-dark rounded">&nbsp;<b><CurrencyFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></b></span><br />
+                                                        className=" border-dark p-1 fs-2  text-dark rounded" data-testid="price">&nbsp;<b><CurrencyFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'₹ '} /></b></span><br />
                                                     </span>
                                                 </div>
                                             </div>
@@ -94,7 +94,8 @@ export const Home = () => {
                 dataPerPage={3}
                 getData={products}
                 navigation={true}
-                getStyle={'style-2'} />
+                getStyle={'style-2'}
+                data-testid="pagination" />
         </>
     )
 }

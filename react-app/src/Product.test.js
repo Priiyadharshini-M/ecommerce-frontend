@@ -9,6 +9,8 @@ import { Product } from "./components/Product";
 import { fireEvent } from "@testing-library/react";
 import { act } from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
+import { Login } from "./components/Login";
+import axios from "axios";
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const render = component => rtlRender(
@@ -88,8 +90,28 @@ describe('Add Product', () => {
     })
 
     it("already existing product", async () => {
+        render(<Login />)
+        const loginbtn = screen.getByText('Login')
+        const emailInput = screen.getByPlaceholderText("Enter email")
+        const passwordInput = screen.getByPlaceholderText("Enter password")
+
+        userEvent.type(emailInput, "priiya303@gmail.com")
+        userEvent.type(passwordInput, "Priiya123")
+        userEvent.click(loginbtn)
+
+        const loginsuccess = await screen.findByText("Successfully logged in")
+        expect(loginsuccess).toBeInTheDocument()
+
+        sessionStorage.setItem("token",store.getState().user.token)
+        axios.interceptors.request.use(
+            config => {
+              config.headers['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
+              return config;
+            }
+          )
+
         render(<Product />)
-        const btn = screen.getByText('Submit')
+        const btn = await screen.findByText('Submit')
         userEvent.type(screen.getByPlaceholderText("Enter product name"), "Zero shirt")
         userEvent.type(screen.getByPlaceholderText("Attach image"), "https://images-eu.ssl-images-amazon.com/images/I/618Wek95laS._AC._SR360,460.jpg")
         userEvent.type(screen.getByPlaceholderText("Enter description"), "Mens Casual Trendy Slim45")
@@ -101,7 +123,7 @@ describe('Add Product', () => {
         expect(btn).toBeInTheDocument()
         userEvent.click(btn)
 
-        const success = await screen.findByText("This product already exists in this category.")
-        //expect(success).toBeInTheDocument()
+        const success = await screen.findAllByText("This product already exists in this category.")
+        expect(success).toBeTruthy()
     })
 })
