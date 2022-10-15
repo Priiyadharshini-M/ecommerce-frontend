@@ -10,6 +10,8 @@ import { Login } from "./components/Login";
 import React from "react";
 import userEvent from "@testing-library/user-event"
 import * as actions from "./redux/action/productAction"
+import axios from "axios";
+import { act } from "react-dom/test-utils"
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const render = component => rtlRender(
@@ -22,49 +24,59 @@ const render = component => rtlRender(
 )
 
 describe("Product details page", () => {
-    let view, spy, products
-    beforeEach(() => {
-        render(<ProductDetails productid="63296a718f5fe69c202483a3"/>)
-        view = jest.spyOn(React, "useEffect")
-        spy = jest.spyOn(store,"dispatch")
-        products = jest.spyOn(actions, "viewIndividualProduct")
+    let userToken
+    it("login", async() => {
+        const { getByText, getByPlaceholderText } = render(<Login />)
+        await act(async() => { 
+        userEvent.type(getByPlaceholderText("Enter email"),"ravi@gmail.com")
+        userEvent.type(getByPlaceholderText("Enter password"),"ravi123")
+        userEvent.click(getByText("Login"))
     })
+    
+        const success = await screen.findByText("Successfully logged in")
+        expect(success).toBeInTheDocument()
+        sessionStorage.setItem("token",store.getState().user.token)
+        userToken = store.getState().user.token
+        axios.interceptors.request.use(
+            config => {
+              config.headers['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
+              return config;
+            }
+          )
+    })
+    
     it("renders product detail page", async() => {
-        const result = await waitFor(() => {
-        expect(view).toHaveBeenCalled();
-        expect(spy).toBeCalled()
-        expect(products).toBeCalled()
-        expect(screen.getByText("Add to Cart")).toBeInTheDocument()
-        expect(screen.getAllByTestId("productName")).toBeTruthy()
-        expect(screen.getAllByTestId("previewImage")).toBeTruthy()
-        expect(screen.getAllByText("Product Details")).toBeTruthy()
-        if(store.getState().product.productDetail[0].stock<=0)
-        {
-            expect(screen.getAllByText("Out of Stock")).toBeTruthy()
-            expect(screen.queryByTestId("stockquantity").textContent).toBe("0")
-        }
-        expect(screen.getAllByTestId("price")).toBeTruthy()
-        expect(screen.queryByTestId("stockquantity").textContent).not.toBe("0")
+            render(<ProductDetails productid="63296a718f5fe69c202483a3"/>)
+            const view = jest.spyOn(React, "useEffect")
+            const spy = jest.spyOn(store,"dispatch")
+            const products = jest.spyOn(actions, "viewIndividualProduct")
+            const result = await waitFor(() => {
+            expect(view).toHaveBeenCalled();
+            expect(spy).toBeCalled()
+            expect(products).toBeCalled()
+            const cartButton = screen.getByText("Add to Cart")
+            expect(screen.getByText("Add to Cart")).toBeInTheDocument()
+            expect(screen.getAllByTestId("productName")).toBeTruthy()
+            expect(screen.getAllByTestId("previewImage")).toBeTruthy()
+            expect(screen.getAllByText("Product Details")).toBeTruthy()
+            if(store.getState().product.productDetail[0].stock<=0)
+            {
+                expect(screen.getAllByText("Out of Stock")).toBeTruthy()
+                expect(screen.queryByTestId("stockquantity").textContent).toBe("0")
+            }
+            expect(screen.getAllByTestId("price")).toBeTruthy()
+            expect(screen.queryByTestId("stockquantity").textContent).not.toBe("0")
+
+            window.sessionStorage.setItem("token",userToken)
+            console.log("session",sessionStorage.getItem("token"))
+            console.log("store",store.getState())
+            store.getState().user.userId="6333f02edce2cabfb1a1a93a"
+            store.getState().user.token=userToken
+            store.getState().user.role="user"
+            userEvent.click(cartButton)
+            //expect(screen.getByText("Added to cart successfully"))
+
+            })
         })
-    })
-
-    it("add to cart success", async() => {
-        const {getByText, getByPlaceholderText, findByText} = render(<Login />)
-        const loginbtn = getByText('Login')
-        const emailInput = getByPlaceholderText("Enter email")
-        const passwordInput = getByPlaceholderText("Enter password")
-
-        userEvent.type(emailInput, "ravi@gmail.com")
-        userEvent.type(passwordInput, "ravi123")
-        userEvent.click(loginbtn)
-
-        const loginsuccess = getByText("Successfully logged in")
-        expect(loginsuccess).toBeInTheDocument()
-        const result = await waitFor(() => {
-           const btn = screen.getByText("Add to Cart")
-           fireEvent.click(btn)
-
-           const success = screen.getByText("Added to cart successfully")
-        })
-    })
+    
 })

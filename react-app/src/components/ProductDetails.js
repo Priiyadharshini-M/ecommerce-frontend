@@ -11,7 +11,7 @@ export const ProductDetails = ({productid}) => {
     const navigate = useNavigate()
     const id = useParams()
     const { productDetail, successMessage } = useSelector(state => state.product)
-    const { userId } = useSelector(state => state.user)
+    const { userId, role } = useSelector(state => state.user)
     const [src, setSrc] = useState('')
 
     const addCart = (id) => {

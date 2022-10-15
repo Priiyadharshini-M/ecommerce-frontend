@@ -8,11 +8,15 @@ import { toast } from 'react-toastify';
 import styles from '../styles/Cart.module.css'
 import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 import React from "react";
+import jwtDecode from "jwt-decode";
 
 export const Cart = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { userId } = useSelector(state => state.user)
+    // const token = sessionStorage.getItem("token")
+    // const decodeToken = jwtDecode(token)
+    // const userId = decodeToken.id
     const { cart, successMessage, errorMessage } = useSelector(state => state.product)
     const [showModal, setShowModal] = useState(false)
     var sum = 0
@@ -47,9 +51,10 @@ export const Cart = () => {
                     productId: cart[count].productId._id,
                     quantity: cart[count].quantity,
                     amount: cart[count].productId.price * cart[count].quantity
-                }))
-                dispatch(updateProduct(cart[count].productId._id, cart[count].productId.stock - cart[count].quantity))
-                dispatch(removeFromCart(cart[count]._id))
+                })).then(() => {
+                    dispatch(updateProduct(cart[count].productId._id, cart[count].productId.stock - cart[count].quantity))
+                    dispatch(removeFromCart(cart[count]._id))
+                })
             }
         }
         navigate('/orders')
@@ -57,18 +62,17 @@ export const Cart = () => {
 
     useEffect(() => {
         dispatch(viewCart(userId))
-        if (successMessage === 'Updated quantity' || successMessage === 'Removed from cart') {
+        if (successMessage === 'Updated quantity' || successMessage === 'Removed from cart' || successMessage === "Order placed successfully") {
             toast.success(successMessage)
             setTimeout(() => {
                 window.location.reload()
             }, 3000)
         }
         // eslint-disable-next-line
-    }, [successMessage,dispatch,userId])
+    }, [successMessage])
 
     return (
         <>
-        <h1>hellooo</h1>
             {cart.length > 0 &&
                 <div className="row mx-5">
                     <div className="col-12 col-xl-7 col-lg-7 col-md-9 col-sm-12">
@@ -82,9 +86,9 @@ export const Cart = () => {
                                                     <img src={cart.productId.productImage[0]} alt="Not found" className={styles.image} />
                                                 </div>
                                                 <div className="row mt-4">
-                                                    <span className="font-weight-bold">{cart.quantity >= 1 && <button className="border border-0 bg-transparent" onClick={() => decrease(cart._id, cart.quantity)}><i className="bi bi-dash-circle font-weight-bold fs-1"></i></button>}
+                                                    <span className="font-weight-bold">{cart.quantity >= 1 && <button className="border border-0 bg-transparent" onClick={() => decrease(cart._id, cart.quantity)} data-testid="dash-circle"><i className="bi bi-dash-circle font-weight-bold fs-1"></i></button>}
                                                         <span className="fs-2">{cart.quantity}</span>
-                                                        <button className="border border-0 bg-transparent" onClick={() => increase(cart._id, cart.quantity)}><i className="bi bi-plus-circle font-weight-bold fs-1"></i></button></span>
+                                                        <button className="border border-0 bg-transparent" onClick={() => increase(cart._id, cart.quantity)} data-testid="plus-circle"><i className="bi bi-plus-circle font-weight-bold fs-1"></i></button></span>
                                                 </div>
                                             </div>
                                             <div className="col-6">
@@ -143,7 +147,7 @@ export const Cart = () => {
                 </Modal.Footer>
             </Modal>
 
-            {cart.length<=0 && errorMessage &&
+            {cart.length<=0 &&
                 <div className="container h-100 d-flex justify-content-center">
                     <div>
                         <h1 className="mt-3">{errorMessage}</h1>

@@ -11,7 +11,8 @@ const initialState = {
     cart: [],
     order: [],
     orderCount: 0,
-    cartCount: 0
+    cartCount: 0,
+    errorMessage:''
 }
 
 export const productReducer = (state = initialState, action) => {
