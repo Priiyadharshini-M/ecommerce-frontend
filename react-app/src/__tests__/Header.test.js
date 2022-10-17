@@ -1,6 +1,6 @@
-import { Login } from "./components/Login";
-import { Header } from "./components/Header"
-import rootReducer from "./redux/reducer/rootReducer";
+import { Login } from "../components/Login";
+import { Header } from "../components/Header"
+import rootReducer from "../redux/reducer/rootReducer";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 import { render as rtlRender, screen } from "@testing-library/react";

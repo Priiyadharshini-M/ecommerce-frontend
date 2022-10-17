@@ -4,12 +4,12 @@ import { BrowserRouter } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
-import rootReducer from "./redux/reducer/rootReducer"
-import { Orders } from "./components/Orders"
-import { Login } from "./components/Login";
+import rootReducer from "../redux/reducer/rootReducer"
+import { Orders } from "../components/Orders"
+import { Login } from "../components/Login";
 import userEvent from "@testing-library/user-event"
 import React from 'react';
-import * as actions from "./redux/action/productAction"
+import * as actions from "../redux/action/productAction"
 import { act } from "react-dom/test-utils"
 import axios from "axios"
 

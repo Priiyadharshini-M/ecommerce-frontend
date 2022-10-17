@@ -1,15 +1,15 @@
-import rootReducer from "./redux/reducer/rootReducer";
+import rootReducer from "../redux/reducer/rootReducer";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 import { render as rtlRender, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ProductDetails } from "./components/ProductDetails";
+import { ProductDetails } from "../components/ProductDetails";
 import { ToastContainer } from "react-toastify";
-import { Login } from "./components/Login";
+import { Login } from "../components/Login";
 import React from "react";
 import userEvent from "@testing-library/user-event"
-import * as actions from "./redux/action/productAction"
+import * as actions from "../redux/action/productAction"
 import axios from "axios";
 import { act } from "react-dom/test-utils"
 

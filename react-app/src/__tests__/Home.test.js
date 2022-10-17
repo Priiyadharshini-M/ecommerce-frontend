@@ -1,13 +1,13 @@
-import rootReducer from "./redux/reducer/rootReducer";
+import rootReducer from "../redux/reducer/rootReducer";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 import { render as rtlRender, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Home } from "./components/Home";
+import { Home } from "../components/Home";
 import { ToastContainer } from "react-toastify";
 import React from "react";
-import * as actions from "./redux/action/productAction"
+import * as actions from "../redux/action/productAction"
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const render = component => rtlRender(

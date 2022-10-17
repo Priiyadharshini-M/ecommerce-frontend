@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { Login } from "./components/Login";
-import rootReducer from "./redux/reducer/rootReducer";
+import { Login } from "../components/Login";
+import rootReducer from "../redux/reducer/rootReducer";
 import { ToastContainer } from "react-toastify";
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

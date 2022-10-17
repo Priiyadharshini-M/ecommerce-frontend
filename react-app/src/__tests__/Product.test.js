@@ -3,13 +3,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import rootReducer from "./redux/reducer/rootReducer";
+import rootReducer from "../redux/reducer/rootReducer";
 import { ToastContainer } from "react-toastify";
-import { Product } from "./components/Product";
+import { Product } from "../components/Product";
 import { fireEvent } from "@testing-library/react";
 import { act } from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
-import { Login } from "./components/Login";
+import { Login } from "../components/Login";
 import axios from "axios";
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
