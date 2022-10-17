@@ -48,12 +48,9 @@ describe('Cart', () => {
         const spy = jest.spyOn(store,"dispatch")
         const cart = jest.spyOn(actions, "viewCart")
         const increase = jest.spyOn(actions, "updateCart")
-        const confirmOrder = jest.spyOn(actions, "order")
+        const confirm = jest.spyOn(actions, "order")
         const result = await waitFor(() => {
         expect(view).toHaveBeenCalled();
-        //expect(spy).toBeCalled()
-        //expect(cart).toBeCalled()
-        console.log("length",store.getState().product.cart.length)
         if(store.getState().product.cart.length > 0 === true){
         // const removeButton = screen.getAllByText("Remove")
         // userEvent.click(removeButton[0])
@@ -73,6 +70,8 @@ describe('Cart', () => {
         userEvent.click(placeOrder)
         screen.getByText("Confirm to place the order?")
         const confirmOrder = screen.getAllByText("Confirm")
+        userEvent.click(confirmOrder[0])
+        expect(confirm).toHaveBeenCalled()
         }
         if(store.getState().product.cart.length <= 0){
             window.location.reload()

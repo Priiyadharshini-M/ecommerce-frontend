@@ -1,7 +1,7 @@
 import rootReducer from "./redux/reducer/rootReducer";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
-import { fireEvent, render as rtlRender, screen, waitFor } from "@testing-library/react";
+import { render as rtlRender, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ProductDetails } from "./components/ProductDetails";
@@ -24,7 +24,7 @@ const render = component => rtlRender(
 )
 
 describe("Product details page", () => {
-    let userToken
+    
     it("login", async() => {
         const { getByText, getByPlaceholderText } = render(<Login />)
         await act(async() => { 
@@ -35,8 +35,6 @@ describe("Product details page", () => {
     
         const success = await screen.findByText("Successfully logged in")
         expect(success).toBeInTheDocument()
-        sessionStorage.setItem("token",store.getState().user.token)
-        userToken = store.getState().user.token
         axios.interceptors.request.use(
             config => {
               config.headers['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
@@ -50,6 +48,7 @@ describe("Product details page", () => {
             const view = jest.spyOn(React, "useEffect")
             const spy = jest.spyOn(store,"dispatch")
             const products = jest.spyOn(actions, "viewIndividualProduct")
+            const cart = jest.spyOn(actions, "addToCart")
             const result = await waitFor(() => {
             expect(view).toHaveBeenCalled();
             expect(spy).toBeCalled()
@@ -67,15 +66,9 @@ describe("Product details page", () => {
             expect(screen.getAllByTestId("price")).toBeTruthy()
             expect(screen.queryByTestId("stockquantity").textContent).not.toBe("0")
 
-            window.sessionStorage.setItem("token",userToken)
-            console.log("session",sessionStorage.getItem("token"))
-            console.log("store",store.getState())
-            store.getState().user.userId="6333f02edce2cabfb1a1a93a"
-            store.getState().user.token=userToken
-            store.getState().user.role="user"
             userEvent.click(cartButton)
-            //expect(screen.getByText("Added to cart successfully"))
-
+            expect(cart).toBeCalled()
+            expect(screen.getAllByText("This product already exists in your cart."))
             })
         })
     
