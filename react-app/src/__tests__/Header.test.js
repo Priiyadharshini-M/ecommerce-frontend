@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from "react-toastify";
 import userEvent from "@testing-library/user-event"
 import { cleanup } from "@testing-library/react";
+import "jest-location-mock";
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const render = component => rtlRender(
@@ -57,6 +58,7 @@ describe('Header', () => {
 
         userEvent.click(logOut)
         expect(screen.getByText('Guest')).toBeInTheDocument()
+        expect(window.location).toBeAt("/")
     })
 
     it("logined admin header content", async() => {
