@@ -8,15 +8,11 @@ import { toast } from 'react-toastify';
 import styles from '../styles/Cart.module.css'
 import { order, removeFromCart, updateCart, updateProduct, viewCart } from "../redux/action/productAction"
 import React from "react";
-import jwtDecode from "jwt-decode";
 
 export const Cart = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { userId } = useSelector(state => state.user)
-    // const token = sessionStorage.getItem("token")
-    // const decodeToken = jwtDecode(token)
-    // const userId = decodeToken.id
     const { cart, successMessage, errorMessage } = useSelector(state => state.product)
     const [showModal, setShowModal] = useState(false)
     var sum = 0

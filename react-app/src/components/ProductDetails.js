@@ -64,7 +64,7 @@ export const ProductDetails = ({productid}) => {
                                         </div>
                                     </div>
                                     <div className='row'>
-                                        {product.stock > 0 && <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>}
+                                        {product.stock > 0 && role!== "admin" && <button type='submit' className="btn btn-danger w-50 ml-5 bg-gradient text-white mt-3 text-white fs-5 rounded-6" onClick={() => addCart(product._id)}>Add to Cart</button>}
                                         {product.stock <= 0 && <p className="fs-2 text-danger font-weight-bold">Out of Stock</p>}
                                     </div>
                                 </div>
